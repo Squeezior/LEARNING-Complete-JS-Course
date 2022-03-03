@@ -168,7 +168,6 @@ const greetArr = greeting => name2 => console.log(`${greeting} ${name2}`);
 greetArr('Hola')('Juan');
 */
 
-/*
 /////////////////////////////////////////
 // The Call and Apply methods
 
@@ -229,4 +228,51 @@ book.apply(swiss, flightData); // not that used in modern JS
 console.log(swiss);
 
 book.call(swiss, ...flightData); // call with spread is the same as apply
-*/
+
+// The Bind method
+// book.call(eurowings, 23, 'Sarah Williams');
+
+const bookEW = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+
+bookEW(23, 'Steven Williams');
+
+const bookEW23 = book.bind(eurowings, 23); // Partial application - part of the argument of the original function is already applied - already set.
+bookEW23('Matt Kowalski');
+bookEW23('Martha Cooper');
+
+// With Event Listeners
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+  console.log(this);
+  this.planes++;
+  console.log(this.planes);
+};
+// lufthansa.buyPlane();
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+// Partial Application
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+const addVAT = addTax.bind(null, 0.23);
+// const addVAT = value => value + value * 0.23;
+console.log(addVAT(200));
+console.log(addVAT(40));
+
+const addTaxRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+    // console.log(
+    //   `The value is ${value}, the rate is ${rate}, tax is ${value * rate} and total is ${value + value * rate}`
+    // );
+  };
+};
+
+const addVAT2 = addTaxRate(0.23);
+console.log(addVAT2(200));
+console.log(addVAT2(40));
