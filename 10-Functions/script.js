@@ -167,3 +167,66 @@ const greetArr = greeting => name2 => console.log(`${greeting} ${name2}`);
 
 greetArr('Hola')('Juan');
 */
+
+/*
+/////////////////////////////////////////
+// The Call and Apply methods
+
+const lufthansa = {
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  // book: function() {},
+  book(flightNum, name) {
+    // enhanced object literal syntax
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}` }, name);
+  },
+};
+
+lufthansa.book(239, 'Matt Kowalski');
+lufthansa.book(635, 'John Smith');
+console.log(lufthansa);
+
+const eurowings = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
+};
+
+const book = lufthansa.book;
+
+// book(23, 'Sarah Williams'); does NOT work
+// book function is just a regular function call, in a regular function call this keyword points to undefined in strict mode
+// book function is no longer a method from lufthansa, it's a copy of lufthansa.book, but it's not a method anymore, it's a function, that's why this keyword will point to undefined.
+// We need to tell JS explicitly what the this keyword should point to.
+// There are three function methods to do that:
+// -call
+// -apply
+// -bind
+
+// Call method
+book.call(eurowings, 23, 'Sarah Williams');
+console.log(eurowings);
+
+book.call(lufthansa, 239, 'Mary Cooper');
+console.log(lufthansa);
+
+const swiss = {
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+};
+
+book.call(swiss, 583, 'Mary Cooper');
+// console.log(swiss);
+
+// Apply method
+const flightData = [583, 'George Cooper'];
+book.apply(swiss, flightData); // not that used in modern JS
+console.log(swiss);
+
+book.call(swiss, ...flightData); // call with spread is the same as apply
+*/
