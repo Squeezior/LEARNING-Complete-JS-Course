@@ -143,3 +143,27 @@ const calculations = function (number, fn) {
 
 calculations(10, exponentiation);
 */
+
+/*
+/////////////////////////////////////////
+// Functions returning functions
+
+const greet = function (greeting) {
+  return function (name) {
+    // closure
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+const greeterHey = greet('Hey');
+greeterHey('Matt');
+greeterHey('Steven');
+
+greet('Hello')('Matt');
+
+// Challenge
+
+const greetArr = greeting => name2 => console.log(`${greeting} ${name2}`);
+
+greetArr('Hola')('Juan');
+*/
