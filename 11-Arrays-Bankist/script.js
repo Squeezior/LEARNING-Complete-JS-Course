@@ -61,10 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -223,6 +225,13 @@ btnClose.addEventListener('click', function (e) {
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
@@ -623,7 +632,7 @@ console.log(movements.filter(deposit));
 
 /////////////////////////////////////////////////
 // Flat and FlatMap
-
+/*
 const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
 console.log(arr.flat()); // removes nested arrays, flattens the arrays, only 1 level deep
 
@@ -649,3 +658,37 @@ const overallBalance2 = accounts
   .flatMap(acc => acc.movements) // only goes one level deep, cannot be changed
   .reduce((acc, mov) => acc + mov, 0);
 console.log(overallBalance);
+*/
+
+/////////////////////////////////////////////////
+// Sort
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// Strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort());
+// mutates the original array
+console.log(owners);
+
+// Numbers
+console.log(movements);
+
+// return < 0 --- A, B (keep order)
+// return > 0 --- B, A (switch order)
+
+// Ascending order
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// Descending order
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a < b) return 1;
+// });
+movements.sort((a, b) => b - a);
+console.log(movements);
