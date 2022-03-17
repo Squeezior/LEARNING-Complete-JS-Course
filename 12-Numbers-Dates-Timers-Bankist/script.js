@@ -427,3 +427,43 @@ console.log(huge + ' is REALLY big!!!');
 console.log(11n / 3n);
 console.log(10 / 3);
 */
+
+/////////////////////////////////////////////////////
+// Creating Dates
+
+// Create a date
+/*
+const now = new Date();
+console.log(now);
+
+console.log(new Date('Mar 17 2022 10:43:56'));
+
+console.log(new Date('December 24, 2015'));
+console.log(new Date(account1.movementsDates[0]));
+
+console.log(new Date(2037, 10, 19, 15, 23, 5));
+console.log(new Date(2037, 10, 31));
+
+console.log(new Date(0));
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); // convert from days to miliseconds, timestamp of day number 3
+*/
+
+// Working with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear()); // always use FULLyear
+console.log(future.getMonth());
+console.log(future.getDate()); // get DAY
+console.log(future.getDay()); // get day of the WEEK
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime());
+
+console.log(new Date(2142253380000)); //timestamp
+
+console.log(Date.now()); // current timestamp
+
+future.setFullYear(2040);
+console.log(future);
