@@ -154,7 +154,7 @@ nav.addEventListener(
   //   logo.style.opacity = 1;
   // }
 );
-
+/*
 // Sticky navigation
 const initialCoords = section1.getBoundingClientRect();
 console.log(initialCoords);
@@ -165,6 +165,44 @@ window.addEventListener('scroll', function () {
     nav.classList.add('sticky');
   } else nav.classList.remove('sticky');
 });
+*/
+////////////////////////////////////////////////////
+// Sticky Navigation: Intersection Observer API
+
+// const obsCallback = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// };
+
+// const obsOptions = {
+//   root: null, // viewport
+//   threshold: [0, 0.2], //threshold, can be an array, % of how much root element should be visible on target for intersection to happen
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+
+const stickyNav = function (entries) {
+  const [entry] = entries; // same as writing entries[0]
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`, // box of 90 pixels that will be applied outside of target element (header), just a visible margin, no change in DOM
+});
+headerObserver.observe(header);
+
+// whenever the target (section1) intersects the root (viewport) at 10% (threshold) callback function will get called with 2 arguments (entries, observer) - entries are an array of thresholds
 
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
