@@ -543,3 +543,23 @@ console.log(h1.parentElement.children);
   if (el !== h1) el.style.transform = 'scale(0.5';
 });
 */
+
+// Lifecycle is right from the moment the page is first accessed, until the user leaves it
+// DOM content loaded - this is fired by the document as soon as the HTML is completely parsed, which means that HTML has been downloaded and been converted to the DOM tree, also all scripts must be downloaded and executed before the DOM content loaded event can happen.
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree built', e);
+});
+
+// Load event is fired by the window as soon as not only the HTML is parsed, but all of the images and external resources like CSS files are also loaded. When the complete page has finished loading this event gets fired.
+
+window.addEventListener('load', function (e) {
+  console.log('Page fully loaded', e);
+});
+
+// event right before the user is about to leave the page, can be useful to prompt a warning while user is in the middle of a form, or any other activity that leads to data loss after exiting the website
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
