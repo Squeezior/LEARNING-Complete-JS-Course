@@ -1,6 +1,5 @@
 'use strict';
 
-/*
 // Constructor Function
 const Person = function (firstName, birthYear) {
   // Instance properties
@@ -24,6 +23,13 @@ console.log(jonas);
 const matilda = new Person('Matilda', 2017);
 const jack = new Person('Jack', 1975);
 console.log(matilda, jack);
+
+Person.hey = function () {
+  console.log('Hey there 👋');
+  console.log(this);
+};
+
+Person.hey();
 
 console.log(jonas instanceof Person);
 
@@ -72,7 +78,6 @@ console.log(arr.unique());
 
 const h1 = document.querySelector('h1');
 console.dir(x => x + 1);
-*/
 
 ///////////////////////////////////////////////////////
 // Coding Challenge #1
@@ -141,6 +146,7 @@ class PersonCl {
     this.birthYear = birthYear;
   }
 
+  // Instance methods
   // Methods will be added to .prototype property - OUTSIDE of constructor
   calcAge() {
     console.log(2037 - this.birthYear);
@@ -165,6 +171,12 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+
+  // Static method
+  static hey() {
+    console.log('Hey there 👋');
+    console.log(this);
+  }
 }
 
 const jessica = new PersonCl('Jessica Davis', 1996);
@@ -185,6 +197,8 @@ jessica.greet();
 
 // Setters and Getters
 const walter = new PersonCl('Walter White', 1965);
+
+PersonCl.hey();
 
 const account = {
   owner: 'Jonas',
