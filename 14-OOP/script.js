@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 // Constructor Function
 const Person = function (firstName, birthYear) {
   // Instance properties
@@ -78,6 +79,7 @@ console.log(arr.unique());
 
 const h1 = document.querySelector('h1');
 console.dir(x => x + 1);
+*/
 
 ///////////////////////////////////////////////////////
 // Coding Challenge #1
@@ -134,8 +136,10 @@ bmw.brake();
 bmw.accelerate();
 */
 
+////////////////////////////////////////////////////
 // ES6 Classes
 
+/*
 // class expression
 // const PersonCl = class {};
 
@@ -241,10 +245,11 @@ console.log(steven.__proto__ === PersonProto);
 const sarah = Object.create(PersonProto);
 sarah.init('Sarah', 1979);
 sarah.calcAge();
+*/
 
 ////////////////////////////////////////////////////
 // Coding Challenge #2
-
+/*
 class Car {
   constructor(make, speed) {
     this.make = make;
@@ -279,3 +284,98 @@ ford.accelerate();
 ford.brake();
 ford.speedUS = 50;
 console.log(ford);
+*/
+/*
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+  // this.firstName = firstName;
+  // this.birthYear = birthYear;
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+// Linking prototypes
+Student.prototype = Object.create(Person.prototype);
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+console.log(mike.__proto__.__proto__.__proto__);
+console.log(mike.__proto__.__proto__.__proto__.__proto__);
+
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.log(mike instanceof Object);
+
+// console.dir(Student.prototype.constructor);
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);
+*/
+
+//////////////////////////////////////////////////////
+// Coding Challenge #3
+
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} is going at ${this.speed} km/h`);
+};
+
+const bmw = new Car('BMW', 120);
+const mercedes = new Car('Mercedes', 95);
+
+const EV = function (make, speed, charge) {
+  Car.call(this, make, speed);
+  this.charge = charge;
+};
+
+EV.prototype = Object.create(Car.prototype);
+EV.prototype.constructor = EV;
+
+EV.prototype.chargeBattery = function (chargeTo) {
+  this.charge = chargeTo;
+};
+
+EV.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge -= 1;
+  console.log(
+    `${this.make}'s going at ${this.speed} km/h, with a charge of ${this.charge}`
+  );
+};
+
+const tesla = new EV('Tesla', 120, 23);
+
+console.log(tesla);
+tesla.accelerate();
+tesla.accelerate();
+tesla.chargeBattery(90);
+tesla.accelerate();
+tesla.accelerate();
+tesla.brake();
+console.log(tesla);
