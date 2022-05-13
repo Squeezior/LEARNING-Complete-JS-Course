@@ -78,7 +78,13 @@ class App {
   #workouts = [];
 
   constructor() {
+    // Get user's position
     this._getPosition();
+
+    // Get data from local storage
+    this._getLocalStorage();
+
+    // Attach event handlers
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
@@ -97,11 +103,9 @@ class App {
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    console.log(`https://www.google.pl/maps/@${latitude},${longitude}`);
 
     const coords = [latitude, longitude];
 
-    console.log(this);
     this.#map = L.map('map').setView(coords, this.#mapZoomLevel);
     // console.log(map);
 
@@ -112,6 +116,10 @@ class App {
 
     // Handling clicks on map
     this.#map.on('click', this._showForm.bind(this));
+
+    this.#workouts.forEach(work => {
+      this._renderWorkoutMarker(work);
+    });
   }
 
   _showForm(mapE) {
@@ -178,17 +186,18 @@ class App {
     }
     // Add new object to workout array
     this.#workouts.push(workout);
-    console.log(workout);
+
     // Render workout on map as marker
     this._renderWorkoutMarker(workout);
+
     // Render workout on list
     this._renderWorkout(workout);
 
     // Hide form + clear input fields
     this._hideForm();
-    // Clear input fields
 
-    // Display the marker
+    // Set local storage to all workouts
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
@@ -259,14 +268,12 @@ class App {
 
   _moveToPopup(e) {
     const workoutEl = e.target.closest('.workout');
-    console.log(workoutEl);
 
     if (!workoutEl) return;
 
     const workout = this.#workouts.find(
       work => work.id === workoutEl.dataset.id
     );
-    console.log(workout);
 
     this.#map.setView(workout.coords, this.#mapZoomLevel, {
       animate: true,
@@ -274,9 +281,32 @@ class App {
     });
 
     // using the public interface
-    workout.click();
+    // workout.click();
   }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+
+    if (!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach(work => {
+      this._renderWorkout(work);
+    });
+  }
+
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
+  }
+  // When we convert strings to objects from local storage, the prototype chain is gone, so they are no longer objects created by classes such as Running or Cycling, therefore they don't have access to methods from prototype anymore e.g workout.click();
+  // We could loop over data and restore the objects by creating new object using the class based on the data that is coming from the local storage
 }
 
 const app = new App();
-app._getPosition();
+// app._getPosition();
