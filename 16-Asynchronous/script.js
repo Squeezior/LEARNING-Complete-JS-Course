@@ -38,6 +38,7 @@ const getCountryData = function (country) {
 // getCountryData('usa');
 
 /////////////////////////////////////////////////////////
+
 const renderCountry = function (data, className = '') {
   const html = `<article class="country ${className}">
   <img class="country__img" src="${data.flag}" />
@@ -55,6 +56,7 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = 1;
 };
 
+/*
 const getCountryAndNeighbour = function (country) {
   // AJAX call country 1
   const request = new XMLHttpRequest();
@@ -103,3 +105,31 @@ setTimeout(() => {
     }, 1000);
   }, 1000);
 }, 1000);
+*/
+
+// const request = new XMLHttpRequest();
+//   request.open('GET', `https://restcountries.com/v2/name/${country}`);
+//   request.send();
+
+// const request = fetch('https://restcountries.com/v2/name/poland');
+// console.log(request);
+
+// const getCountryData = function (country) {
+//   fetch(`https://restcountries.com/v2/name/${country}`)
+//     .then(function (response) {
+//       console.log(response); // to actually read the data from the response we need to call the json method on it
+//       return response.json(); // json method is available on all resolved promises, this will be a new promise, so we need to handle this promise as well
+//     })
+//     .then(function (data) {
+//       console.log(data);
+//       renderCountry(data[0]);
+//     });
+// };
+
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v2/name/${country}`)
+    .then(response => response.json())
+    .then(data => renderCountry(data[0]));
+};
+
+getCountryData('poland');
