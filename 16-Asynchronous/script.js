@@ -24,7 +24,7 @@ const renderCountry = function (data, className = '') {
 </article>`;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
+  // countriesContainer.style.opacity = 1;
 };
 
 const renderError = function (msg) {
@@ -218,7 +218,7 @@ btn.addEventListener('click', function () {
 // getCountryData('poland');
 
 // getCountryData('australia');
-
+/*
 const whereAmI = function (lat, lng) {
   return fetch(
     `https://geocode.xyz/${lat},${lng}?geoit=json&auth=561571893855903759321x86848`
@@ -251,3 +251,4 @@ whereAmI(52.508, 13.381);
 whereAmI(19.037, 72.873);
 
 whereAmI(-33.933, 18.474);
+*/
