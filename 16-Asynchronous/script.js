@@ -194,13 +194,13 @@ const getCountryData = function (country) {
       if (!neighbour) throw new Error('No neighbour found!');
 
       // Country2
-      getJSON(
+      return getJSON(
         `https://restcountries.com/v3.1/alpha/${neighbour[0]}`,
         'Country not found'
       );
     })
     .then(data => {
-      renderCountry(data, 'neighbour');
+      renderCountry(data[0], 'neighbour');
     })
     .catch(err => {
       console.error(`${err} 💥💥💥`);
@@ -252,3 +252,14 @@ whereAmI(19.037, 72.873);
 
 whereAmI(-33.933, 18.474);
 */
+
+console.log('Test start');
+setTimeout(() => console.log('0 sec timer'), 0);
+Promise.resolve('Resolved promise 1').then(res => console.log(res));
+
+Promise.resolve('Resolved promise 2').then(res => {
+  for (let i = 0; i < 1000000000; i++) {}
+  console.log(res);
+});
+
+console.log('Test end');
