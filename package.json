@@ -1,1 +1,23 @@
-{}
+{
+  "name": "complete-js-course",
+  "version": "1.0.0",
+  "description": "Recipe application",
+  "main": "index.html",
+  "devDependencies": {
+    "parcel": "^2.8.2"
+  },
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Squeezior/Learning-Complete-JS-Course.git"
+  },
+  "author": "Matt Kowalski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Squeezior/Learning-Complete-JS-Course/issues"
+  },
+  "homepage": "https://github.com/Squeezior/Learning-Complete-JS-Course#readme"
+}

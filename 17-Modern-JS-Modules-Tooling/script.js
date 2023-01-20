@@ -136,4 +136,10 @@ console.log('Jonas' ?? null);
 console.log(cart.find(el => el.quantity >= 2));
 Promise.resolve('TEST').then(x => console.log(x));
 
+// for Babel ES6 compatibility with ES5
 import 'core-js/stable';
+// import 'core-js/stable/array/find';
+// import 'core-js/stable/promise';
+
+// Polifilling async functions
+import 'regenerator-runtime/runtime';
